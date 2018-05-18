@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block sub_menu %}
+
+    {% include('admin/_menu.html.twig') %}
+
+    {% include('admin/tools/_menu.html.twig') %}
+
+{% endblock %}
+
+{% block body %}
+
+    <h1> {{ subject|capitalize }}(s) </h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+
+            <thead>
+            <td>Nom</td>
+            <td>Description</td>
+            {% if ratio == true %}
+                <td>Ratio</td>
+            {% endif %}
+            <td colspan="2">
+                <a href="{{ path('app_admin_tools' ~ section ~ 'create') }}"
+                   class="btn btn-success btn-block">Créer</a>
+            </td>
+            </thead>
+
+            <tbody>
+            {% set mon_token = csrf_token('masuperintensiondelamortquituelaviememeapreslamort') %}
+            {% for data in datas %}
+                <tr>
+                    <td>{{ data.name }}</td>
+                    <td>{{ data.description }}</td>
+                    {% if ratio == true %}
+                        <td>{{ data.ratio }}</td>
+                    {% endif %}
+                    <td>
+                        <a href="{{ path('app_admin_tools' ~ section ~ 'update', {id:data.id, token:mon_token}) }}"
+                           class="btn btn-warning btn-block">Modifier</a></td>
+                    <td>
+                        <a href="{{ path('app_admin_tools' ~ section ~ 'delete', {id:data.id, token:mon_token}) }}"
+                           class="btn btn-danger btn-block">Supprimer</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% if datas == null %}
+            <p>Pas de {{ subject }} enregistré pour le moment !</p>
+        {% endif %}
+    </div>
+
+{% endblock %}

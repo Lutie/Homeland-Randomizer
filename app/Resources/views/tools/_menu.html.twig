@@ -1,0 +1,14 @@
+{% set route = app.request.attributes.get('_route') %}
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li class="{{ route starts with 'app_character_index' ? 'active' }}">
+                <a href="{{ path('app_character_index') }}">Création de Personnages</a>
+            </li>
+            <li class="{{ route starts with 'app_spell_config' ? 'active' }}">
+                <a href="">Création de Sorts</a>
+            </li>
+        </ul>
+    </div>
+</nav>

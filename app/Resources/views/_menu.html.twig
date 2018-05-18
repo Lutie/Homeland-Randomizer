@@ -1,0 +1,46 @@
+{% set route = app.request.attributes.get('_route') %}
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li>
+                <a href="{{ path('app_default_index') }}">Terre Natale</a>
+            </li>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <li class="{{ route starts with 'app_universe_' ? 'active' }}">
+                    <a href="{{ path('app_universe_index') }}">Univers</a>
+                </li>
+                <li class="{{ route starts with  'app_rules_' ? 'active' }}">
+                    <a href="{{ path('app_rules_index') }}">Règles</a>
+                </li>
+                <li class="{{ route starts with  'app_tools_' ? 'active' }}">
+                    <a href="{{ path('app_tools_index') }}">Outils</a>
+                </li>
+            {% endif %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <li>
+                    <a href="">{{ app.user.getUsername }} (Utilisateur)</a>
+                </li>
+            {% endif %}
+            <li class="{{ route == 'app_security_login' ? 'active' }}">
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <a href="{{ path('app_security_logout') }}">Déconnexion</a>
+                {% else %}
+                    <a href="{{ path('app_security_login') }}">Connexion</a>
+                {% endif %}
+            </li>
+            {% if is_granted('ROLE_USER') == false %}
+                <li class="{{ route == 'app_security_signup' ? 'active' }}">
+                    <a href="{{ path('app_security_signup') }}">Inscription</a>
+                </li>
+            {% endif %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="{{ route starts with 'app_admin_' ? 'active' }}">
+                    <a href="{{ path('app_admin_index') }}">Administration</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

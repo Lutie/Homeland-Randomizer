@@ -1,0 +1,7 @@
+entity:
+  sign:
+    login : Your login
+    username : Your user name
+    email : Your email
+    first_raw_password : Your password
+    second_raw_password : Retype password

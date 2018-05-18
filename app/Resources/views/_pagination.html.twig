@@ -1,0 +1,9 @@
+{%  macro li(page, limit, count, route) %} {# on nomme la macro, ici li, et on a des arguments, ici page, limit, count et route #}
+    {% if page > 0 and count > (( page - 1 ) * limit) %} {# formule pour la pagination #}
+        <li>
+            <a href="{{ path(route, {page:page}) }}">
+                {{ page }}
+            </a>
+        </li>
+    {% endif %}
+{% endmacro %}

@@ -1,0 +1,113 @@
+$(function () {
+
+    // $('select[multiple]').select2(); // ne fonctionne pas avec la fonction random
+
+    var lockRandom = function (id) {
+        id.on('click', function () {
+            id.toggleClass('btn-success');
+            id.toggleClass('btn-primary');
+            if (id.hasClass('btn-success')) {
+                id.html('<i class="fas fa-lock"></i>');
+            }
+            else {
+                id.html('<i class="fas fa-lock-open"></i>');
+            }
+        });
+    };
+
+    lockRandom($('#lock_age'));
+    lockRandom($('#lock_morphology'));
+    lockRandom($('#lock_personality'));
+    lockRandom($('#lock_particularities'));
+    lockRandom($('#lock_liabilities'));
+    lockRandom($('#lock_sex'));
+    lockRandom($('#lock_ethnic'));
+
+    $('#random_all').on('click', function () {
+        var url = $(this).data('api');
+        $.get(url, {subject: 'all'}, function (data) {
+            if ($('#lock_age').hasClass('btn-primary')) $('#character_age').val(data.age);
+            if ($('#lock_sex').hasClass('btn-primary')) $('#character_sex').val(data.sex);
+            if ($('#lock_morphology').hasClass('btn-primary')) $('#character_morphology').val(data.morphology);
+            if ($('#lock_personality').hasClass('btn-primary')) $('#character_personality').val(data.personality);
+            if ($('#lock_particularities').hasClass('btn-primary')) $('#character_particularities').val(data.particularities);
+            if ($('#lock_liabilities').hasClass('btn-primary')) $('#character_liabilities').val(data.liabilities);
+            if ($('#lock_ethnic').hasClass('btn-primary')) $('#character_ethnic').val(data.ethnic);
+        });
+    });
+
+    $('#random_age').on('click', function () {
+        var url = $(this).data('api');
+        $.get(url, {subject: 'age'}, function (data) {
+            $('#character_age').val(data.age); //.change(); (peut être que ça ne fonctionnera plus avec select 2)
+        });
+    });
+
+    $('#random_morphology').on('click', function () {
+        var url = $(this).data('api');
+        $.get(url, {subject: 'morphology'}, function (data) {
+            $('#character_morphology').val(data.morphology);
+        });
+    });
+
+    $('#random_personality').on('click', function () {
+        var url = $(this).data('api');
+        $.get(url, {subject: 'personality'}, function (data) {
+            $('#character_personality').val(data.personality);
+        });
+    });
+
+    $('#random_particularities').on('click', function () {
+        var url = $(this).data('api');
+        $.get(url, {subject: 'particularity'}, function (data) {
+            $('#character_particularities').val(data.particularities);
+        });
+    });
+
+    $('#random_liabilities').on('click', function () {
+        var url = $(this).data('api');
+        $.get(url, {subject: 'liability'}, function (data) {
+            $('#character_liabilities').val(data.particularities);
+        });
+    });
+
+    $('#random_sex').on('click', function () {
+        var url = $(this).data('api');
+        $.get(url, {subject: 'sex'}, function (data) {
+            $('#character_sex').val(data.sex);
+        });
+    });
+
+    $('#random_ethnic').on('click', function () {
+        var url = $(this).data('api');
+        $.get(url, {subject: 'ethnic'}, function (data) {
+            $('#character_ethnic').val(data.ethnic);
+        });
+    });
+
+    // Search API
+    var $search = $('#search');
+    var cache = {};
+    $('#refresh').each(function () {
+        var $div = $(this);
+        var url = $div.data('api');
+
+        var searchCharacter = function (search) {
+            if (cache.hasOwnProperty(search)) {
+                $div.html(cache[search]);
+            } else {
+                $.get(url, {search: search}, function (html) {
+                    cache[search] = html;
+                    $div.html(html);
+                });
+            }
+        };
+
+        $search.on('keyup', function () {
+            searchCharacter($search.val());
+        });
+        searchCharacter('');
+
+    });
+
+});

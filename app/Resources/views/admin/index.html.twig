@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block sub_menu %}
+
+    {% include('admin/_menu.html.twig') %}
+
+{% endblock %}
+
+{% block body %}
+
+    <h1> Panneau d'Administration </h1>
+    </br>
+    <p>Cette section propose de réaliser quelques actions d'administration.</p>
+    <p>Certains outils du site peuvent en effet être étoffé ou configuré, c'est donc d'ici que vous pouvez le faire.</p>
+    <lu>
+        <li>"Liste des Utilisateurs" permet de visualiser/modifier les utilisateurs enregistrés.</li>
+        <li>"Configuration des Outils" permet d'ajouter/modifier/supprimer des entrées/choix aux différents outils.
+        </li>
+    </lu>
+
+{% endblock %}

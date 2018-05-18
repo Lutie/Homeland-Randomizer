@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Inscription{% endblock %}
+
+{% block body %}
+
+    <h1> Inscription </h1>
+
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-xs-4"> {{ form_row(form.login) }} </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-4"> {{ form_row(form.username) }} </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3"> {{ form_row(form.rawPassword.first) }} </div>
+        <div class="col-xs-3"> {{ form_row(form.rawPassword.second) }} </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6"> {{ form_row(form.email) }} </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Valider</button>
+    <a href="{{ path('app_default_index') }}" class="btn btn-primary">Annuler</a>
+    {{ form_end(form) }}
+
+{% endblock %}

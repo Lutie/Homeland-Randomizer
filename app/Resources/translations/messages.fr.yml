@@ -1,0 +1,44 @@
+entity:
+  sign:
+    login : Votre identifiant (pour la connexion)
+    username : Votre pseudo (votre surnom)
+    email : Votre email
+    first_raw_password : Votre mot de passe
+    second_raw_password : Réécrivez le mot de passe
+  ethnic:
+    name : Nom de l'ethnie
+    description : Description de l'ethnie
+    ratio : Ratio (rareté de 1 à 100)
+  liability:
+    name : Nom de l'handicap
+    description : Description de l'handicap
+    ratio : Ratio (rareté de 1 à 100)
+  particularity:
+    name : Nom de la particularité
+    description : Description de la particularité
+    ratio : Ratio (rareté de 1 à 100)
+  personality:
+    name : Nom de la personnalité
+    description : Description de la personnalité
+    ratio : Ratio (rareté de 1 à 100)
+  morphology:
+    name : Nom de la morphologie
+    description : Description de la morphologie
+    ratio : Ratio (rareté de 1 à 100)
+  universe:
+    name : Nom de l'univers
+    description : Description de l'univers
+    ratio : Ratio (rareté de 1 à 100)
+  character:
+    firstname : Nom commun
+    lastname : Nom de famille
+    age : Âge
+    sex : Sexe
+    ethnic: Ethnie
+    liabilities: Handicap(s)
+    particularities: Particularité(s)
+    personality: Personnalité
+    morphology: Morphologie
+    universe: Univers
+male: Homme
+femelle: Femme

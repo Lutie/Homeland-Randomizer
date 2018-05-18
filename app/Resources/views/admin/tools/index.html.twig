@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block sub_menu %}
+
+    {% include('admin/_menu.html.twig') %}
+
+    {% include('admin/tools/_menu.html.twig') %}
+
+{% endblock %}
+
+{% block body %}
+
+    <h1> Configuration des Outils </h1>
+    </br>
+    <p>Sélectionnez une section de configuration.</p>
+    <lu>
+        <li>"Particularités" permet d'ajouter/modifier/supprimer les particularités (outils : création de
+            personnage).
+        </li>
+        <li>"Handicaps" permet d'ajouter/modifier/supprimer les handicaps (outils : création de personnage).</li>
+        <li>"Morphologies" permet d'ajouter/modifier/supprimer les morphologies (outils : création de personnage).
+        </li>
+        <li>"Personnalités" permet d'ajouter/modifier/supprimer les personnalités (outils : création de personnage).
+        </li>
+        <li>"Univers" permet d'ajouter/modifier/supprimer les univers (outils : création de personnage).</li>
+        <li>"Ethnies" permet d'ajouter/modifier/supprimer les ethnies (outils : création de personnage (Thalifen)).
+        </li>
+    </lu>
+
+{% endblock %}

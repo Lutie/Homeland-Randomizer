@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block sub_menu %}
+
+    {% include('admin/_menu.html.twig') %}
+
+    {% include('admin/tools/_menu.html.twig') %}
+
+{% endblock %}
+
+{% block title %}{{ data.id ? 'Modifier' : 'Créer' }} un {{ subject }}{% endblock %}
+
+{% block body %}
+
+    <h1>{{ data.id ? 'Modifier' : 'Créer' }} {{ subject }} {{ data.name }}</h1>
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-xs-3"> {{ form_row(form.name) }} </div>
+        {% if form.ratio is defined %}
+            <div class="col-xs-3"> {{ form_row(form.ratio) }} </div>
+        {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-xs-12"> {{ form_row(form.description) }} </div>
+    </div>
+    <button type="submit" class="btn btn-primary">{{ data.id ? 'Modifier' : 'Créer' }}</button>
+    <a href="{{ path('app_admin_tools' ~ section) }}"
+       class="btn btn-primary">Annuler</a>
+    {{ form_end(form) }}
+
+{% endblock %}

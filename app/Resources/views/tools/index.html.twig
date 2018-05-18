@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block sub_menu %}
+
+    {% include('tools/_menu.html.twig') %}
+
+{% endblock %}
+
+{% block body %}
+
+    <h1> Les Outils pour MJ </h1>
+    </br>
+    <p>Cette section propose quelques outils utiles pour les Maitres de Jeu.</p>
+    <p>Certains de ces outils sont propres à Terre Natale alors que d'autres peuvent être utilisés avec n'importe quelle
+        règles ou univers.</p>
+    <lu>
+        <li>Générateur de Personnages (sans univers ou pour l'univers Thalifen)</li>
+        <li>Générateur de Sorts (pour l'univers Thalifen)</li>
+    </lu>
+
+{% endblock %}

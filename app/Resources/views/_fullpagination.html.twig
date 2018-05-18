@@ -1,0 +1,28 @@
+{% macro full_pagination(page, limit, count, route) %}
+
+    {% import '_pagination.html.twig' as pagination %}
+
+    <ul class="pagination">
+        {% if page > 1 %}
+            <li>
+                <a href="{{ path(route, {page:page-1}) }}">Page précédente</a>
+            </li>
+        {% endif %}
+
+        {{ pagination.li(page -2, limit, count, route) }}
+        {{ pagination.li(page -1, limit, count, route) }}
+        <li>
+            <span>{{ page }}</span>
+        </li>
+        {{ pagination.li(page +1, limit, count, route) }}
+        {{ pagination.li(page +2, limit, count, route) }}
+
+        {% set page_max = count/limit %}
+        {% if page_max > page %}
+            <li>
+                <a href="{{ path(route, {page:page+1}) }}">Page suivante</a>
+            </li>
+        {% endif %}
+    </ul>
+
+{% endmacro %}

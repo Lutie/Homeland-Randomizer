@@ -1,0 +1,26 @@
+{% set route = app.request.attributes.get('_route') %}
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="{{ route starts with 'app_admin_toolsparticularity' ? 'active' }}">
+                <a href="{{ path('app_admin_toolsparticularity') }}">Particularités</a>
+            </li>
+            <li class="{{ route starts with 'app_admin_toolsliability' ? 'active' }}">
+                <a href="{{ path('app_admin_toolsliability') }}">Handicaps</a>
+            </li>
+            <li class="{{ route starts with 'app_admin_toolsmorphology' ? 'active' }}">
+                <a href="{{ path('app_admin_toolsmorphology') }}">Morphologies</a>
+            </li>
+            <li class="{{ route starts with 'app_admin_toolspersonality' ? 'active' }}">
+                <a href="{{ path('app_admin_toolspersonality') }}">Personnalités</a>
+            </li>
+            <li class="{{ route starts with 'app_admin_toolsuniverse' ? 'active' }}">
+                <a href="{{ path('app_admin_toolsuniverse') }}">Univers</a>
+            </li>
+            <li class="{{ route starts with 'app_admin_toolsethnic' ? 'active' }}">
+                <a href="{{ path('app_admin_toolsethnic') }}">Ethnies</a>
+            </li>
+        </ul>
+    </div>
+</nav>

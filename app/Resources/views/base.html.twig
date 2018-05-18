@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+
+    {# ces 2 métas sont liés à boostraps #}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+          integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+    {% block javascripts %}
+        <script language="JavaScript" type="text/javascript"
+                src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+        <script language="JavaScript" type="text/javascript"
+                src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+        <script language="JavaScript" type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+    {% endblock %}
+
+    <title>{% block title %}Terre Natale{% endblock %}</title>
+
+    {% block stylesheets %}
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+        {# <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"/> #}
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/mystyle.css') }}">
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+
+</head>
+<body>
+
+{% include('_menu.html.twig') %}
+
+{% block sub_menu %}
+
+{% endblock %}
+
+{% include('_flash.html.twig') %}
+
+<div class="container">
+    {% block body %}
+
+    {% endblock %}
+</div>
+
+</body>
+</html>

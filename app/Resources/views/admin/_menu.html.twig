@@ -1,0 +1,14 @@
+{% set route = app.request.attributes.get('_route') %}
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-right">
+            <li class=""> {# {{ route starts with 'app_universe_' ? 'active' }} #}
+                <a href="">Liste des Utilisateurs</a> {# {{ path('app_universe_index') }} #}
+            </li>
+            <li class="{{ route starts with 'app_admin_tools' ? 'active' }}">
+                <a href="{{ path('app_admin_toolsindex') }}">Configuration des Outils</a>
+            </li>
+        </ul>
+    </div>
+</nav>

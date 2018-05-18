@@ -1,0 +1,62 @@
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+
+        <thead>
+        <td>Nom</td>
+        <td>Patronyme</td>
+        <td>Sexe</td>
+        <td>Âge</td>
+        <td>Morphologie</td>
+        <td>Personnalité</td>
+        <td>Particularité</td>
+        <td>Handicap</td>
+        <td>Univers</td>
+        <td>Ethnie</td>
+        <td>Auteur</td>
+        <td>Création</td>
+        <td colspan="2">
+            <a href="{{ path('app_character_create') }}"
+               class="btn btn-success btn-block">Créer</a>
+        </td>
+        </thead>
+
+        <tbody>
+        {% set mon_token = csrf_token('CHARACTER_TOKEN') %}
+        {% for data in datas %}
+            <tr>
+                <td>{{ data.firstname }}</td>
+                <td>{{ data.lastname }}</td>
+                <td>{{ data.sex == 0 ? 'Homme' : 'Femme' }}</td>
+                <td>{{ data.age }}</td>
+                <td>{{ data.morphology.name }}</td>
+                <td>{{ data.personality.name }}</td>
+                <td>
+                    {% for particularity in data.particularities %}
+                        <span class="label label-default">{{ particularity.name }}</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for liability in data.liabilities %}
+                        <span class="label label-default">{{ liability.name }}</span>
+                    {% endfor %}
+                </td>
+                <td>{{ data.ethnic }}</td>
+                <td>{{ data.universe }}</td>
+                <td>{{ data.author }}</td>
+                <td>{{ data.date|date("d/m/Y") }}</td>
+                <td>
+                    <a href="{{ path('app_character_update', {id:data.id, token:mon_token}) }}"
+                       class="btn btn-warning btn-block">Modifier</a></td>
+                <td>
+                    <a href="{{ path('app_character_delete', {id:data.id, token:mon_token}) }}"
+                       class="btn btn-danger btn-block">Supprimer</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if datas == null %}
+        <p>Pas de personnage enregistré pour le moment !</p>
+    {% endif %}
+</div>
+
+{# {{ knp_pagination_render(datas) }} #}

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block sub_menu %}
+
+    {% include('tools/_menu.html.twig') %}
+
+    {% include('tools/character/_menu.html.twig') %}
+
+{% endblock %}
+
+{% block body %}
+
+    <h1> Personnage(s) </h1>
+
+    <div class="form">
+        <div class="form-group">
+            <input id="search" class="form-control" placeholder="Recherche ...">
+        </div>
+    </div>
+    <div id="refresh" data-api="{{ path('app_character_search') }}"></div>
+
+{% endblock %}
