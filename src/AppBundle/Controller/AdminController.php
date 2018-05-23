@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Ethnic;
 use AppBundle\Entity\Liability;
 use AppBundle\Entity\Morphology;
+use AppBundle\Entity\MorphologySize;
 use AppBundle\Entity\Particularity;
 use AppBundle\Entity\Personality;
 use AppBundle\Entity\Universe;
@@ -16,14 +17,13 @@ use AppBundle\Form\Type\PersonalityType;
 use AppBundle\Form\Type\UniverseType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @Security("has_role('ROLE_ADMIN')")
  * @Route("/admin")
  */
-class AdminController extends Controller
+class AdminController extends AbstractController
 {
     /**
      * @Route()
@@ -46,7 +46,7 @@ class AdminController extends Controller
      */
     public function toolsEthnicAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->em();
         $repository = $em->getRepository(Ethnic::class);
         $datas = $repository->findAll();
 
@@ -73,7 +73,7 @@ class AdminController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->em();
             $em->persist($data);
             $em->flush();
 
@@ -99,13 +99,13 @@ class AdminController extends Controller
         $subject = "ethnie";
         $section = "ethnic";
 
-        $this->isTokenValid($request->query->get('token'));
+        $this->isTokenValid($request->query->get('token'), 'masuperintensiondelamortquituelaviememeapreslamort');
 
         $form = $this->createForm(EthnicType::class, $ethnic);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->em();
             $em->persist($ethnic);
             $em->flush();
 
@@ -128,9 +128,9 @@ class AdminController extends Controller
      */
     public function toolsEthnicDeleteAction(Request $request, Ethnic $ethnic) //
     {
-        $this->isTokenValid($request->query->get('token'));
+        $this->isTokenValid($request->query->get('token'), 'masuperintensiondelamortquituelaviememeapreslamort');
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->em();
         $em->remove($ethnic);
         $em->flush();
 
@@ -144,7 +144,7 @@ class AdminController extends Controller
      */
     public function toolsLiabilityAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->em();
         $repository = $em->getRepository(Liability::class);
         $datas = $repository->findAll();
 
@@ -171,7 +171,7 @@ class AdminController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->em();
             $em->persist($data);
             $em->flush();
 
@@ -197,13 +197,13 @@ class AdminController extends Controller
         $subject = "handicap";
         $section = "liability";
 
-        $this->isTokenValid($request->query->get('token'));
+        $this->isTokenValid($request->query->get('token'), 'masuperintensiondelamortquituelaviememeapreslamort');
 
         $form = $this->createForm(LiabilityType::class, $liability);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->em();
             $em->persist($liability);
             $em->flush();
 
@@ -226,9 +226,9 @@ class AdminController extends Controller
      */
     public function toolsLiabilityDeleteAction(Request $request, Liability $liability) //
     {
-        $this->isTokenValid($request->query->get('token'));
+        $this->isTokenValid($request->query->get('token'), 'masuperintensiondelamortquituelaviememeapreslamort');
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->em();
         $em->remove($liability);
         $em->flush();
 
@@ -242,7 +242,7 @@ class AdminController extends Controller
      */
     public function toolsMorphologyAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->em();
         $repository = $em->getRepository(Morphology::class);
         $datas = $repository->findAll();
 
@@ -269,7 +269,7 @@ class AdminController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->em();
             $em->persist($data);
             $em->flush();
 
@@ -295,13 +295,13 @@ class AdminController extends Controller
         $subject = "morphologie";
         $section = "morphology";
 
-        $this->isTokenValid($request->query->get('token'));
+        $this->isTokenValid($request->query->get('token'), 'masuperintensiondelamortquituelaviememeapreslamort');
 
         $form = $this->createForm(MorphologyType::class, $morphology);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->em();
             $em->persist($morphology);
             $em->flush();
 
@@ -324,9 +324,9 @@ class AdminController extends Controller
      */
     public function toolsMorphologyDeleteAction(Request $request, Morphology $morphology) //
     {
-        $this->isTokenValid($request->query->get('token'));
+        $this->isTokenValid($request->query->get('token'), 'masuperintensiondelamortquituelaviememeapreslamort');
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->em();
         $em->remove($morphology);
         $em->flush();
 
@@ -340,7 +340,7 @@ class AdminController extends Controller
      */
     public function toolsParticularityAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->em();
         $repository = $em->getRepository(Particularity::class);
         $datas = $repository->findAll();
 
@@ -367,7 +367,7 @@ class AdminController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->em();
             $em->persist($data);
             $em->flush();
 
@@ -393,13 +393,13 @@ class AdminController extends Controller
         $subject = "particularité";
         $section = "particularity";
 
-        $this->isTokenValid($request->query->get('token'));
+        $this->isTokenValid($request->query->get('token'), 'masuperintensiondelamortquituelaviememeapreslamort');
 
         $form = $this->createForm(EthnicType::class, $particularity);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->em();
             $em->persist($particularity);
             $em->flush();
 
@@ -422,9 +422,9 @@ class AdminController extends Controller
      */
     public function toolsParticularityDeleteAction(Request $request, Particularity $particularity) //
     {
-        $this->isTokenValid($request->query->get('token'));
+        $this->isTokenValid($request->query->get('token'), 'masuperintensiondelamortquituelaviememeapreslamort');
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->em();
         $em->remove($particularity);
         $em->flush();
 
@@ -438,7 +438,7 @@ class AdminController extends Controller
      */
     public function toolsPersonalityAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->em();
         $repository = $em->getRepository(Personality::class);
         $datas = $repository->findAll();
 
@@ -465,7 +465,7 @@ class AdminController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->em();
             $em->persist($data);
             $em->flush();
 
@@ -491,13 +491,13 @@ class AdminController extends Controller
         $subject = "personnalité";
         $section = "personality";
 
-        $this->isTokenValid($request->query->get('token'));
+        $this->isTokenValid($request->query->get('token'), 'masuperintensiondelamortquituelaviememeapreslamort');
 
         $form = $this->createForm(PersonalityType::class, $personality);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->em();
             $em->persist($personality);
             $em->flush();
 
@@ -520,9 +520,9 @@ class AdminController extends Controller
      */
     public function toolsPersonalityDeleteAction(Request $request, Personality $personality) //
     {
-        $this->isTokenValid($request->query->get('token'));
+        $this->isTokenValid($request->query->get('token'), 'masuperintensiondelamortquituelaviememeapreslamort');
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->em();
         $em->remove($personality);
         $em->flush();
 
@@ -536,7 +536,7 @@ class AdminController extends Controller
      */
     public function toolsUniverseAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->em();
         $repository = $em->getRepository(Universe::class);
         $datas = $repository->findAll();
 
@@ -563,7 +563,7 @@ class AdminController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->em();
             $em->persist($data);
             $em->flush();
 
@@ -589,13 +589,13 @@ class AdminController extends Controller
         $subject = "univers";
         $section = "universe";
 
-        $this->isTokenValid($request->query->get('token'));
+        $this->isTokenValid($request->query->get('token'), 'masuperintensiondelamortquituelaviememeapreslamort');
 
         $form = $this->createForm(UniverseType::class, $universe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->em();
             $em->persist($universe);
             $em->flush();
 
@@ -618,26 +618,15 @@ class AdminController extends Controller
      */
     public function toolsUniverseDeleteAction(Request $request, Universe $universe) //
     {
-        $this->isTokenValid($request->query->get('token'));
+        $this->isTokenValid($request->query->get('token'), 'masuperintensiondelamortquituelaviememeapreslamort');
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->em();
         $em->remove($universe);
         $em->flush();
 
         $this->addFlash('success', 'L\'univers a bien été supprimé.');
 
         return $this->redirectToRoute('app_admin_toolsuniverse');
-    }
-
-    public function isTokenValid($token)
-    {
-        if ($token === null) {
-            throw $this->createNotFoundException();
-        }
-
-        if (!$this->isCsrfTokenValid('masuperintensiondelamortquituelaviememeapreslamort', $token)) {
-            throw $this->createNotFoundException();
-        }
     }
 
 }

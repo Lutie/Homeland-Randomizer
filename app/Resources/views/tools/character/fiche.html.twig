@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block sub_menu %}
+
+    {% include('tools/_menu.html.twig') %}
+
+    {% include('tools/character/_menu.html.twig') %}
+
+{% endblock %}
+
+{% block body %}
+
+    {% set mon_token = csrf_token('CHARACTER_TOKEN') %}
+
+    <h1>{{ data.lastname }} {{ data.firstname }}</h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+
+            <tbody>
+            <tr>
+                <td>Sexe</td>
+                <td>{{ data.sex == 0 ? 'Homme' : 'Femme' }}</td>
+            </tr>
+            <tr>
+                <td>Âge</td>
+                <td>{{ data.age }}</td>
+            </tr>
+            <tr>
+                <td>Morphologie</td>
+                <td>{{ data.morphology.name }}</td>
+            </tr>
+            <tr>
+                <td>Personnalité</td>
+                <td>{{ data.personality.name }}</td>
+            </tr>
+            <tr>
+                <td>Particularité</td>
+                <td>
+                    {% for particularity in data.particularities %}
+                        {% if not loop.first %}
+                            <br>
+                        {% endif %}
+                        <span>{{ particularity.name }} : {{ particularity.description }}</span>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>Handicap</td>
+                <td>
+                    {% for liability in data.liabilities %}
+                        {% if not loop.first %}
+                            <br>
+                        {% endif %}
+                        <span>{{ liability.name }} : {{ liability.description }}</span>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <td>Ethnie</td>
+                <td>{{ data.ethnic }}</td>
+            </tr>
+            <tr>
+                <td>Univers</td>
+                <td>{{ data.universe }}</td>
+            </tr>
+            <tr>
+                <td>Auteur</td>
+                <td>{{ data.author }}</td>
+            </tr>
+            <tr>
+                <td>Création</td>
+                <td>{{ data.date|date("d/m/Y") }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a href="{{ path('app_character_config') }}"
+       class="btn btn-primary btn-block">Retour à la liste</a>
+
+{% endblock %}
+
+{#
+    <a href="{{ path('app_character_update', {id:data.id, token:mon_token}) }}"
+       class="btn btn-warning btn-block">Modifier</a>
+    <a href="{{ path('app_character_delete', {id:data.id, token:mon_token}) }}"
+       class="btn btn-danger btn-block">Supprimer</a>
+#}

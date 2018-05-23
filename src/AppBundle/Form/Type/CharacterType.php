@@ -62,7 +62,13 @@ class CharacterType extends AbstractType
             ])
             ->add('ethnic', EntityType::class, [
                 'label' => 'entity.character.ethnic',
-                'class' => Ethnic::class
+                'class' => Ethnic::class,
+                'choice_attr' => function (Ethnic $ethnic) {
+                    return [
+                        'data-id' => $ethnic->getId(),
+                        'data-ratio' => $ethnic->getRatio()
+                    ];
+                }
             ]);
     }
 

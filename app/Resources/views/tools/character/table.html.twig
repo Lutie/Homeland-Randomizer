@@ -24,20 +24,23 @@
         {% set mon_token = csrf_token('CHARACTER_TOKEN') %}
         {% for data in datas %}
             <tr>
-                <td>{{ data.firstname }}</td>
-                <td>{{ data.lastname }}</td>
+                <td><a href="{{ path('app_character_read', {id:data.id}) }}">{{ data.firstname }}</a>
+                </td>
+                <td><a href="{{ path('app_character_read', {id:data.id}) }}">{{ data.lastname }}</a></td>
                 <td>{{ data.sex == 0 ? 'Homme' : 'Femme' }}</td>
                 <td>{{ data.age }}</td>
                 <td>{{ data.morphology.name }}</td>
                 <td>{{ data.personality.name }}</td>
                 <td>
                     {% for particularity in data.particularities %}
-                        <span class="label label-default">{{ particularity.name }}</span>
+                        <span class="label label-default"
+                              title="{{ particularity.description }}">{{ particularity.name }}</span>
                     {% endfor %}
                 </td>
                 <td>
                     {% for liability in data.liabilities %}
-                        <span class="label label-default">{{ liability.name }}</span>
+                        <span class="label label-default"
+                              title="{{ liability.description }}">{{ liability.name }}</span>
                     {% endfor %}
                 </td>
                 <td>{{ data.ethnic }}</td>
@@ -59,4 +62,4 @@
     {% endif %}
 </div>
 
-{# {{ knp_pagination_render(datas) }} #}
+{{ knp_pagination_render(datas) }}

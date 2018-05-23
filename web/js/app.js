@@ -78,15 +78,29 @@ $(function () {
         });
     });
 
+    //$('#random_ethnic').on('click', function () {
+    //    var url = $(this).data('api');
+    //    $.get(url, {subject: 'ethnic'}, function (data) {
+    //       $('#character_ethnic').val(data.ethnic);
+    //    });
+    //});
+
     $('#random_ethnic').on('click', function () {
-        var url = $(this).data('api');
-        $.get(url, {subject: 'ethnic'}, function (data) {
-            $('#character_ethnic').val(data.ethnic);
+
+        var table = []; // on déclare un tableau
+        $('#character_ethnic').children('option').each(function () {
+            var option = {}; // on déclare un objet
+            option.id = $(this).data('id');
+            option.ratio = $(this).data('ratio');
+            table.push(option); // hop on glisse l'objet dans le tableau
         });
+
+        $('#character_ethnic').val(data.ethnic);
+
     });
 
     // Search API
-    var $search = $('#search');
+        var $search = $('#search');
     var cache = {};
     $('#refresh').each(function () {
         var $div = $(this);
@@ -108,6 +122,17 @@ $(function () {
         });
         searchCharacter('');
 
+        // Exemple de pagination en AJAX
+        $div.on('click', 'ul.pagination a', function (e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            $.get(url, function (html) {
+                $div.html(html);
+            });
+
+        });
+
     });
 
-});
+})
+;

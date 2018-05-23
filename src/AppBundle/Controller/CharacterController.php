@@ -11,7 +11,6 @@ use AppBundle\Entity\Personality;
 use AppBundle\Form\Type\CharacterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -20,7 +19,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  * @Security("has_role('ROLE_USER')")
  * @Route("/outils/personnage")
  */
-class CharacterController extends Controller
+class CharacterController extends AbstractController
 {
 
     /**
@@ -29,14 +28,6 @@ class CharacterController extends Controller
     public function indexAction()
     {
         return $this->render('tools/character/index.html.twig');
-    }
-
-    /**
-     * @Route("/liste")
-     */
-    public function configAction()
-    {
-        return $this->render('tools/character/config.html.twig');
     }
 
     /**
@@ -72,7 +63,7 @@ class CharacterController extends Controller
      */
     public function updateAction(Request $request, Character $character)
     {
-        $this->isTokenValid($request->query->get('token'));
+        $this->isTokenValid($request->query->get('token'), 'CHARACTER_TOKEN');
 
         $form = $this->createForm(CharacterType::class, $character);
         $form->handleRequest($request);
@@ -98,7 +89,7 @@ class CharacterController extends Controller
      */
     public function deleteAction(Request $request, Character $character)
     {
-        $this->isTokenValid($request->query->get('token'));
+        $this->isTokenValid($request->query->get('token'), 'CHARACTER_TOKEN');
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($character);
@@ -132,17 +123,36 @@ class CharacterController extends Controller
     }
 
     /**
+     * @Route("/liste")
+     */
+    public function configAction(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+            return $this->searchAction($request);
+        }
+
+        return $this->render('tools/character/config.html.twig');
+    }
+
+    /**
      * Search
      *
      * @param Request $request
      *
      * @return Response
-     * @Route("/rechercher")
      */
     public function searchAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $characters = $em->getRepository(Character::class)->search($request->query->get('search'));
+        $qb = $em->getRepository(Character::class)->search($request->query->get('search'));
+
+        $paginator = $this->get('knp_paginator');
+        $characters = $paginator->paginate(
+            $qb,
+            max(1, $request->query->getInt('page', 1)),
+            5
+        );
+
         return $this->render('tools/character/table.html.twig', [
             'datas' => $characters,
         ]);
@@ -169,15 +179,15 @@ class CharacterController extends Controller
 
         $subject = $request->query->get('subject');
 
-        if ($subject == 'morphology' || 'all') $morphology = $this->getRandom(Morphology::class);
-        if ($subject == 'personality' || 'all') $personality = $this->getRandom(Personality::class);
-        if ($subject == 'ethnic' || 'all') $ethnic = $this->getRandom(Ethnic::class);
+        if (in_array($subject, ['morphology', 'all'])) $morphology = $this->getRandom(Morphology::class);
+        if (in_array($subject, ['personality', 'all'])) $personality = $this->getRandom(Personality::class);
+        if (in_array($subject, ['ethnic', 'all'])) $ethnic = $this->getRandom(Ethnic::class);
 
-        if ($subject == 'particularities' || 'all') {
+        if (in_array($subject, ['particularities', 'all'])) {
             if (rand(0, 100) < 66) $particularities[] = $this->getRandom(Particularity::class);
             if (rand(0, 100) < 33) $particularities[] = $this->getRandom(Particularity::class);
         }
-        if ($subject == 'liabilities' || 'all') {
+        if (in_array($subject, ['liabilities', 'all'])) {
             if (rand(0, 100) < 66) $liabilities[] = $this->getRandom(Liability::class);
             if (rand(0, 100) < 33) $liabilities[] = $this->getRandom(Liability::class);
         }
@@ -197,15 +207,18 @@ class CharacterController extends Controller
 
     }
 
-    public function isTokenValid($token)
+    /**
+     * @Route("/fiche/{id}", requirements={"id":"\d+"})
+     */
+    public function readAction(Character $character)
     {
-        if ($token === null) {
-            throw $this->createNotFoundException();
-        }
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository(character::class);
+        $character = $repository->findOneBy(['id' => $character]);
 
-        if (!$this->isCsrfTokenValid('CHARACTER_TOKEN', $token)) {
-            throw $this->createNotFoundException();
-        }
+        return $this->render('tools/character/fiche.html.twig', [
+            'data' => $character,
+        ]);
     }
 
 }
