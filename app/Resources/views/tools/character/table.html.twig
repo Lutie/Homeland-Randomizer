@@ -1,4 +1,4 @@
-<div class="table-responsive">
+<div class="table-responsive table-hover">
     <table class="table table-bordered table-striped">
 
         <thead>
@@ -6,7 +6,7 @@
         <td>Patronyme</td>
         <td>Sexe</td>
         <td>Âge</td>
-        <td>Morphologie</td>
+        <td>Morphologie (notable)</td>
         <td>Personnalité</td>
         <td>Particularité</td>
         <td>Handicap</td>
@@ -27,9 +27,15 @@
                 <td><a href="{{ path('app_character_read', {id:data.id}) }}">{{ data.firstname }}</a>
                 </td>
                 <td><a href="{{ path('app_character_read', {id:data.id}) }}">{{ data.lastname }}</a></td>
-                <td>{{ data.sex == 0 ? 'Homme' : 'Femme' }}</td>
+                <td>{{ data.sex == 0 ? 'entity.character.male'|trans : 'entity.character.female'|trans }}</td>
                 <td>{{ data.age }}</td>
-                <td>{{ data.morphology.name }}</td>
+                <td>
+                    {% for morphology in data.morphology %}
+                        {% if morphology.value != 5 %}
+                            <span class="label label-default"
+                                  title="{{ morphology.description }}">{{ morphology.name }}</span>
+                        {% endif %}
+                    {% endfor %}</td>
                 <td>{{ data.personality.name }}</td>
                 <td>
                     {% for particularity in data.particularities %}

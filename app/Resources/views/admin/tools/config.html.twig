@@ -21,6 +21,12 @@
             {% if ratio == true %}
                 <td>Ratio</td>
             {% endif %}
+            {% if type == true %}
+                <td>Type</td>
+            {% endif %}
+            {% if value == true %}
+                <td>Valeur</td>
+            {% endif %}
             <td colspan="2">
                 <a href="{{ path('app_admin_tools' ~ section ~ 'create') }}"
                    class="btn btn-success btn-block">Créer</a>
@@ -35,6 +41,12 @@
                     <td>{{ data.description }}</td>
                     {% if ratio == true %}
                         <td>{{ data.ratio }}</td>
+                    {% endif %}
+                    {% if type == true %}
+                        <td>{{ data.type == 0 ? 'entity.morphology.size'|trans : data.type == 1 ? 'entity.morphology.weight'|trans : 'entity.morphology.build'|trans }}</td>
+                    {% endif %}
+                    {% if value == true %}
+                        <td>{{ data.value }}</td>
                     {% endif %}
                     <td>
                         <a href="{{ path('app_admin_tools' ~ section ~ 'update', {id:data.id, token:mon_token}) }}"

@@ -25,6 +25,11 @@ entity:
     name : Nom de la morphologie
     description : Description de la morphologie
     ratio : Ratio (rareté de 1 à 100)
+    size : Taille
+    weight : Poids
+    build : Carrure
+    type : Type (0 taille, 1 poids, 2 carrure)
+    value : Valeur (de 0 à 10)
   universe:
     name : Nom de l'univers
     description : Description de l'univers
@@ -40,5 +45,10 @@ entity:
     personality: Personnalité
     morphology: Morphologie
     universe: Univers
+    size : Taille
+    weight : Poids
+    build : Carrure
+    male : Homme
+    female : Femme
 male: Homme
 femelle: Femme

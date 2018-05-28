@@ -8,6 +8,7 @@ use AppBundle\Entity\Morphology;
 use AppBundle\Entity\Particularity;
 use AppBundle\Entity\Personality;
 use AppBundle\Entity\Universe;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -34,17 +35,40 @@ class CharacterType extends AbstractType
             ])
             ->add('sex', ChoiceType::class, [
                 'choices' => [
-                    'male' => '0',
-                    'femelle' => '1'
+                    'entity.character.male' => '0',
+                    'entity.character.female' => '1'
                 ],
                 'label' => 'entity.character.sex'
             ])
             ->add('age', IntegerType::class, [
                 'label' => 'entity.character.age',
             ])
-            ->add('morphology', EntityType::class, [
-                'label' => 'entity.character.morphology',
-                'class' => Morphology::class
+            ->add('size', EntityType::class, [
+                'label' => 'entity.character.size',
+                'class' => Morphology::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('size')
+                        ->where('size.type = 1')
+                        ->orderBy('size.value', 'ASC');
+                },
+            ])
+            ->add('weight', EntityType::class, [
+                'label' => 'entity.character.weight',
+                'class' => Morphology::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('weight')
+                        ->where('weight.type = 2')
+                        ->orderBy('weight.value', 'ASC');
+                },
+            ])
+            ->add('build', EntityType::class, [
+                'label' => 'entity.character.build',
+                'class' => Morphology::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('build')
+                        ->where('build.type = 3')
+                        ->orderBy('build.value', 'ASC');
+                },
             ])
             ->add('personality', EntityType::class, [
                 'label' => 'entity.character.personality',

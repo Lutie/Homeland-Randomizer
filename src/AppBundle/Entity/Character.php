@@ -62,9 +62,7 @@ class Character extends AbstractType
     private $age;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Morphology")
-     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
-     * @Assert\NotNull()
+     * @ORM\ManyToMany(targetEntity="Morphology")
      */
     private $morphology;
 
@@ -91,10 +89,26 @@ class Character extends AbstractType
      */
     private $ethnic;
 
+    /**
+     *
+     */
+    private $size;
+
+    /**
+     *
+     */
+    private $weight;
+
+    /**
+     *
+     */
+    private $build;
+
     public function __construct()
     {
         $this->particularities = new ArrayCollection();
         $this->liabilities = new ArrayCollection();
+        $this->morphology = new ArrayCollection();
 
         $this->date = new \DateTime();
     }
@@ -292,30 +306,6 @@ class Character extends AbstractType
     }
 
     /**
-     * Set morphology
-     *
-     * @param \AppBundle\Entity\Morphology $morphology
-     *
-     * @return Character
-     */
-    public function setMorphology(\AppBundle\Entity\Morphology $morphology)
-    {
-        $this->morphology = $morphology;
-
-        return $this;
-    }
-
-    /**
-     * Get morphology
-     *
-     * @return \AppBundle\Entity\Morphology
-     */
-    public function getMorphology()
-    {
-        return $this->morphology;
-    }
-
-    /**
      * Set personality
      *
      * @param \AppBundle\Entity\Personality $personality
@@ -394,6 +384,62 @@ class Character extends AbstractType
         }
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMorphology()
+    {
+        return $this->morphology;
+    }
+
+    public function addMorphology(Morphology $morphology)
+    {
+        if (!$this->morphology->contains($morphology)) {
+            $this->morphology->add($morphology);
+        }
+
+        return $this;
+    }
+
+    public function removeMorphology(Morphology $morphology)
+    {
+        if ($this->morphology->contains($morphology)) {
+            $this->morphology->removeElement($morphology);
+        }
+
+        return $this;
+    }
+
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    public function setSize($size)
+    {
+        $this->size = $size;
+    }
+
+    public function getWeight()
+    {
+        return $this->weight;
+    }
+
+    public function setWeight($weight)
+    {
+        $this->weight = $weight;
+    }
+
+    public function getBuild()
+    {
+        return $this->build;
+    }
+
+    public function setBuild($build)
+    {
+        $this->build = $build;
     }
 
 }

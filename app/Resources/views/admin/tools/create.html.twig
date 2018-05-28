@@ -19,6 +19,12 @@
         {% if form.ratio is defined %}
             <div class="col-xs-3"> {{ form_row(form.ratio) }} </div>
         {% endif %}
+        {% if form.type is defined %}
+            <div class="col-xs-3"> {{ form_row(form.type) }} </div>
+        {% endif %}
+        {% if form.value is defined %}
+            <div class="col-xs-3"> {{ form_row(form.value) }} </div>
+        {% endif %}
     </div>
     <div class="row">
         <div class="col-xs-12"> {{ form_row(form.description) }} </div>

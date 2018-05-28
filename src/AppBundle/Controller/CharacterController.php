@@ -43,6 +43,10 @@ class CharacterController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $character->addMorphology($character->getSize());
+            $character->addMorphology($character->getWeight());
+            $character->addMorphology($character->getBuild());
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($character);
             $em->flush();
@@ -100,28 +104,6 @@ class CharacterController extends AbstractController
         return $this->redirectToRoute('app_character_config');
     }
 
-    private function getRandom($class)
-    {
-
-        $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository($class);
-        $list = $repository->findBy([], ['ratio' => 'DESC']);
-        $table = [];
-        foreach ($list as $option) {
-            $table[] = $option->getRatio();
-        }
-        $rand = rand(0, array_sum($table));
-        foreach ($list as $option) {
-            $rand -= $option->getRatio();
-            if ($rand <= 0) {
-                $proprety = $option;
-                break;
-            }
-        }
-
-        return $proprety->getId();
-    }
-
     /**
      * @Route("/liste")
      */
@@ -170,7 +152,9 @@ class CharacterController extends AbstractController
         $data = null;
 
         $age = rand(17, 77);
-        $morphology = null;
+        $size = null;
+        $weight = null;
+        $build = null;
         $personality = null;
         $particularities[] = null;
         $liabilities[] = null;
@@ -179,32 +163,64 @@ class CharacterController extends AbstractController
 
         $subject = $request->query->get('subject');
 
-        if (in_array($subject, ['morphology', 'all'])) $morphology = $this->getRandom(Morphology::class);
-        if (in_array($subject, ['personality', 'all'])) $personality = $this->getRandom(Personality::class);
-        if (in_array($subject, ['ethnic', 'all'])) $ethnic = $this->getRandom(Ethnic::class);
+        if (in_array($subject, ['size', 'all'])) $size = $this->getRandom(Morphology::class, 1);
+        if (in_array($subject, ['weight', 'all'])) $weight = $this->getRandom(Morphology::class, 2);
+        if (in_array($subject, ['build', 'all'])) $build = $this->getRandom(Morphology::class, 3);
+
+        if (in_array($subject, ['personality', 'all'])) $personality = $this->getRandom(Personality::class, 0);
+        if (in_array($subject, ['ethnic', 'all'])) $ethnic = $this->getRandom(Ethnic::class, 0);
 
         if (in_array($subject, ['particularities', 'all'])) {
-            if (rand(0, 100) < 66) $particularities[] = $this->getRandom(Particularity::class);
-            if (rand(0, 100) < 33) $particularities[] = $this->getRandom(Particularity::class);
+            if (rand(0, 100) < 66) $particularities[] = $this->getRandom(Particularity::class, 0);
+            if (rand(0, 100) < 33) $particularities[] = $this->getRandom(Particularity::class, 0);
         }
         if (in_array($subject, ['liabilities', 'all'])) {
-            if (rand(0, 100) < 66) $liabilities[] = $this->getRandom(Liability::class);
-            if (rand(0, 100) < 33) $liabilities[] = $this->getRandom(Liability::class);
+            if (rand(0, 100) < 66) $liabilities[] = $this->getRandom(Liability::class, 0);
+            if (rand(0, 100) < 33) $liabilities[] = $this->getRandom(Liability::class, 0);
         }
 
         $data = [
             'age' => $age,
-            'morphology' => $morphology,
+            'size' => $size,
+            'weight' => $weight,
+            'build' => $build,
             'personality' => $personality,
             'particularities' => $particularities,
             'liabilities' => $liabilities,
-            'data' => $data,
             'ethnic' => $ethnic,
             'sex' => $sex
         ];
 
         return new JsonResponse($data);
 
+    }
+
+    private function getRandom($class, $type)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository($class);
+
+        if ($type != 0) {
+            $list = $repository->findBy(['type' => $type], ['ratio' => 'DESC']);
+        } else {
+            $list = $repository->findBy([], ['ratio' => 'DESC']);
+        }
+
+        $table = [];
+        foreach ($list as $option) {
+            $table[] = $option->getRatio();
+        }
+        $rand = rand(0, array_sum($table));
+        foreach ($list as $option) {
+            $rand -= $option->getRatio();
+            if ($rand <= 0) {
+                $proprety = $option;
+                break;
+            }
+        }
+
+        return $proprety->getId();
     }
 
     /**

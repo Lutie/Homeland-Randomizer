@@ -5,7 +5,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Ethnic;
 use AppBundle\Entity\Liability;
 use AppBundle\Entity\Morphology;
-use AppBundle\Entity\MorphologySize;
 use AppBundle\Entity\Particularity;
 use AppBundle\Entity\Personality;
 use AppBundle\Entity\Universe;
@@ -54,6 +53,8 @@ class AdminController extends AbstractController
             'section' => 'ethnic',
             'subject' => 'ethnie',
             'ratio' => true,
+            'type' => false,
+            'value' => false,
             'datas' => $datas
         ]);
     }
@@ -87,6 +88,8 @@ class AdminController extends AbstractController
             'section' => $section,
             'subject' => $subject,
             'ratio' => true,
+            'type' => false,
+            'value' => false,
             'data' => $data
         ]);
     }
@@ -119,6 +122,8 @@ class AdminController extends AbstractController
             'section' => $section,
             'subject' => $subject,
             'ratio' => true,
+            'type' => false,
+            'value' => false,
             'data' => $ethnic
         ]);
     }
@@ -152,6 +157,8 @@ class AdminController extends AbstractController
             'section' => 'liability',
             'subject' => 'handicap',
             'ratio' => true,
+            'type' => false,
+            'value' => false,
             'datas' => $datas
         ]);
     }
@@ -185,6 +192,8 @@ class AdminController extends AbstractController
             'section' => $section,
             'subject' => $subject,
             'ratio' => true,
+            'type' => false,
+            'value' => false,
             'data' => $data
         ]);
     }
@@ -217,6 +226,8 @@ class AdminController extends AbstractController
             'section' => $section,
             'subject' => $subject,
             'ratio' => true,
+            'type' => false,
+            'value' => false,
             'data' => $liability
         ]);
     }
@@ -250,6 +261,8 @@ class AdminController extends AbstractController
             'section' => 'morphology',
             'subject' => 'morphologie',
             'ratio' => true,
+            'type' => true,
+            'value' => true,
             'datas' => $datas
         ]);
     }
@@ -283,6 +296,8 @@ class AdminController extends AbstractController
             'section' => $section,
             'subject' => $subject,
             'ratio' => true,
+            'type' => true,
+            'value' => true,
             'data' => $data
         ]);
     }
@@ -315,6 +330,8 @@ class AdminController extends AbstractController
             'section' => $section,
             'subject' => $subject,
             'ratio' => true,
+            'type' => true,
+            'value' => true,
             'data' => $morphology
         ]);
     }
@@ -348,6 +365,8 @@ class AdminController extends AbstractController
             'section' => 'particularity',
             'subject' => 'particularité',
             'ratio' => true,
+            'type' => false,
+            'value' => false,
             'datas' => $datas
         ]);
     }
@@ -381,6 +400,8 @@ class AdminController extends AbstractController
             'section' => $section,
             'subject' => $subject,
             'ratio' => true,
+            'type' => false,
+            'value' => false,
             'data' => $data
         ]);
     }
@@ -413,6 +434,8 @@ class AdminController extends AbstractController
             'section' => $section,
             'subject' => $subject,
             'ratio' => true,
+            'type' => false,
+            'value' => false,
             'data' => $particularity
         ]);
     }
@@ -446,6 +469,8 @@ class AdminController extends AbstractController
             'section' => 'personality',
             'subject' => 'personnalité',
             'ratio' => true,
+            'type' => false,
+            'value' => false,
             'datas' => $datas
         ]);
     }
@@ -479,6 +504,8 @@ class AdminController extends AbstractController
             'section' => $section,
             'subject' => $subject,
             'ratio' => true,
+            'type' => false,
+            'value' => false,
             'data' => $data
         ]);
     }
@@ -511,6 +538,8 @@ class AdminController extends AbstractController
             'section' => $section,
             'subject' => $subject,
             'ratio' => true,
+            'type' => false,
+            'value' => false,
             'data' => $personality
         ]);
     }
@@ -544,6 +573,8 @@ class AdminController extends AbstractController
             'section' => 'universe',
             'subject' => 'univers',
             'ratio' => false,
+            'type' => false,
+            'value' => false,
             'datas' => $datas
         ]);
     }
@@ -577,6 +608,8 @@ class AdminController extends AbstractController
             'section' => $section,
             'subject' => $subject,
             'ratio' => false,
+            'type' => false,
+            'value' => false,
             'data' => $data
         ]);
     }
@@ -609,6 +642,8 @@ class AdminController extends AbstractController
             'section' => $section,
             'subject' => $subject,
             'ratio' => false,
+            'type' => false,
+            'value' => false,
             'data' => $universe
         ]);
     }

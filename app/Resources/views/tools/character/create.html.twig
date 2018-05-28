@@ -17,6 +17,7 @@
     <h1>{{ character.id ? 'Modifier un' : 'Créer le' }}
         personnage {{ character.firstname }} {{ character.lastname }}</h1>
     {{ form_start(form,{'attr': {'novalidate': 'novalidate'}}) }}
+
     <div class="row">
         <div class="col-xs-3"> {{ form_row(form.firstname) }} </div>
         <div class="col-xs-3"> {{ form_row(form.lastname) }} </div>
@@ -31,13 +32,29 @@
             <div id="lock_sex" class="btn btn-primary"><i class="fas fa-lock-open"></i></div>
         </div>
     </div>
+
     <div class="row">
-        <div class="col-xs-2"> {{ form_row(form.morphology) }} </div>
+        <div class="col-xs-2"> {{ form_row(form.size) }} </div>
         <div class="row col-xs-1">
-            <div id="random_morphology" class="btn btn-warning" data-api="{{ random_route }}"><i
+            <div id="random_size" class="btn btn-warning" data-api="{{ random_route }}"><i
                         class="fas fa-dice"></i></div>
-            <div id="lock_morphology" class="btn btn-primary"><i class="fas fa-lock-open"></i></div>
+            <div id="lock_size" class="btn btn-primary"><i class="fas fa-lock-open"></i></div>
         </div>
+        <div class="col-xs-2"> {{ form_row(form.weight) }} </div>
+        <div class="row col-xs-1">
+            <div id="random_weight" class="btn btn-warning" data-api="{{ random_route }}"><i
+                        class="fas fa-dice"></i></div>
+            <div id="lock_weight" class="btn btn-primary"><i class="fas fa-lock-open"></i></div>
+        </div>
+        <div class="col-xs-2"> {{ form_row(form.build) }} </div>
+        <div class="row col-xs-1">
+            <div id="random_build" class="btn btn-warning" data-api="{{ random_route }}"><i
+                        class="fas fa-dice"></i></div>
+            <div id="lock_build" class="btn btn-primary"><i class="fas fa-lock-open"></i></div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-xs-2"> {{ form_row(form.personality) }} </div>
         <div class="row col-xs-1">
             <div id="random_personality" class="btn btn-warning" data-api="{{ random_route }}"><i
@@ -57,6 +74,7 @@
             <div id="lock_liabilities" class="btn btn-primary"><i class="fas fa-lock-open"></i></div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-xs-3"> {{ form_row(form.universe) }} </div>
         <div class="col-xs-2"> {{ form_row(form.ethnic) }} </div>
@@ -66,6 +84,7 @@
             <div id="lock_ethnic" class="btn btn-primary"><i class="fas fa-lock-open"></i></div>
         </div>
     </div>
+
     <button type="submit" class="btn btn-primary">{{ character.id ? 'Modifier' : 'Créer' }}</button>
     <a href="{{ path('app_character_config') }}"
        class="btn btn-primary">Annuler</a>

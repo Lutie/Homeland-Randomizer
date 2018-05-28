@@ -16,7 +16,9 @@ $(function () {
     };
 
     lockRandom($('#lock_age'));
-    lockRandom($('#lock_morphology'));
+    lockRandom($('#lock_size'));
+    lockRandom($('#lock_weight'));
+    lockRandom($('#lock_build'));
     lockRandom($('#lock_personality'));
     lockRandom($('#lock_particularities'));
     lockRandom($('#lock_liabilities'));
@@ -28,7 +30,9 @@ $(function () {
         $.get(url, {subject: 'all'}, function (data) {
             if ($('#lock_age').hasClass('btn-primary')) $('#character_age').val(data.age);
             if ($('#lock_sex').hasClass('btn-primary')) $('#character_sex').val(data.sex);
-            if ($('#lock_morphology').hasClass('btn-primary')) $('#character_morphology').val(data.morphology);
+            if ($('#lock_size').hasClass('btn-primary')) $('#character_size').val(data.size);
+            if ($('#lock_weight').hasClass('btn-primary')) $('#character_weight').val(data.weight);
+            if ($('#lock_build').hasClass('btn-primary')) $('#character_build').val(data.build);
             if ($('#lock_personality').hasClass('btn-primary')) $('#character_personality').val(data.personality);
             if ($('#lock_particularities').hasClass('btn-primary')) $('#character_particularities').val(data.particularities);
             if ($('#lock_liabilities').hasClass('btn-primary')) $('#character_liabilities').val(data.liabilities);
@@ -43,10 +47,24 @@ $(function () {
         });
     });
 
-    $('#random_morphology').on('click', function () {
+    $('#random_size').on('click', function () {
         var url = $(this).data('api');
-        $.get(url, {subject: 'morphology'}, function (data) {
-            $('#character_morphology').val(data.morphology);
+        $.get(url, {subject: 'size'}, function (data) {
+            $('#character_size').val(data.size);
+        });
+    });
+
+    $('#random_weight').on('click', function () {
+        var url = $(this).data('api');
+        $.get(url, {subject: 'weight'}, function (data) {
+            $('#character_weight').val(data.weight);
+        });
+    });
+
+    $('#random_build').on('click', function () {
+        var url = $(this).data('api');
+        $.get(url, {subject: 'build'}, function (data) {
+            $('#character_build').val(data.build);
         });
     });
 
@@ -100,7 +118,7 @@ $(function () {
     });
 
     // Search API
-        var $search = $('#search');
+    var $search = $('#search');
     var cache = {};
     $('#refresh').each(function () {
         var $div = $(this);
