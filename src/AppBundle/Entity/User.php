@@ -20,14 +20,16 @@ class User implements UserInterface
     use IdTrait;
 
     /**
-     * @ORM\Column(unique=true)
+     * @ORM\Column(unique=true, type="string", length=128)
      * @Assert\NotNull()
+     * @Assert\Length(max=128)
      */
     private $login;
 
     /**
-     * @ORM\Column()
+     * @ORM\Column(type="string", length=128)
      * @Assert\NotNull()
+     * @Assert\Length(max=128)
      */
     private $username;
 
