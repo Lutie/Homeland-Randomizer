@@ -6,13 +6,14 @@ security:
         ROLE_ADMIN: [ ROLE_USER, ROLE_GAMEMASTER ]
 
     providers:
-        users:
+        database:
             entity:
-                class: 'AppBundle\Entity\User'
+                class: AppBundle\Entity\User
                 property: login
 
     encoders:
-        AppBundle\Entity\User: 'bcrypt'
+        Symfony\Component\Security\Core\User\User: bcrypt
+        AppBundle\Entity\User: bcrypt
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
